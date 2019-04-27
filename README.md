@@ -2,3 +2,5 @@
 Ludum Dare 44 Entry
 
 Theme: Your Life is Currency
+
+Use GDScript style guidelines.
