@@ -1,10 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/player/coin.png" type="Texture" id=2]
-[ext_resource path="res://assets/music/landing1.ogg" type="AudioStream" id=3]
-[ext_resource path="res://assets/music/landing2.ogg" type="AudioStream" id=4]
-[ext_resource path="res://assets/music/landing3.ogg" type="AudioStream" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 40.0852
@@ -38,14 +35,5 @@ cast_to = Vector2( 0, 44 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea"]
 shape = SubResource( 1 )
-
-[node name="Landing1" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
-
-[node name="Landing2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 4 )
-
-[node name="Landing3" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
 
 [connection signal="area_entered" from="PlayerArea" to="." method="_on_PlayerArea_area_entered"]
