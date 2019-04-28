@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal hit
 signal death
+signal collect
 signal spawn
 
 const UP = Vector2(0, -1)
@@ -38,7 +39,7 @@ func _physics_process(delta):
 	speed_now.x = lerp(speed_now.x, speed.x, 0.2)
 	velocity.x = speed_now.x
 	
-	velocity = move_and_slide(velocity, UP, SLOPE_STOP)
+	velocity = move_and_slide(velocity)
 	
 	if _check_is_grounded():
 		jumps_used = 0
@@ -58,11 +59,18 @@ func _check_is_grounded():
 	return false
 
 
-func _on_Player_body_entered(body):
-	emit_signal("hit")
-	$CollisionShape2D.call_deferred("set_disabled", true)
-
-
 func _die():
 	emit_signal("death")
 	hide()
+
+
+func _collect_item(area):
+	print(area.power_up_property_test)
+	emit_signal("collect")
+
+
+func _on_PlayerArea_area_entered(area):
+	if area.name == "Item":
+		_collect_item(area)
+	else:
+		emit_signal("hit")
