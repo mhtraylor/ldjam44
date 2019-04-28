@@ -4,9 +4,12 @@ signal hit
 signal death
 signal collect
 signal spawn
+signal player_landed
 
 const UP = Vector2(0, -1)
 const SLOPE_STOP = 0
+
+var play_landed = false
 
 const GRAVITY = 800.0
 const WALK_SPEED = 250
@@ -47,12 +50,17 @@ func _physics_process(delta):
 	
 	if _check_is_grounded():
 		jumps_used = 0
+		
+		if play_landed:
+			play_landed = false
+			emit_signal("player_landed")
 
 
 func _input(event):
 	if event.is_action_pressed("ui_accept") && jumps_used < JUMPS_ALLOWED:
 		velocity.y = JUMP_VELOCITY
 		jumps_used += 1
+		play_landed = true
 
 
 func _check_is_grounded():

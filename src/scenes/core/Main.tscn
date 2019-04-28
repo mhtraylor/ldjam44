@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/core/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/world/Item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/music/landing1.ogg" type="AudioStream" id=4]
-[ext_resource path="res://assets/music/landing2.ogg" type="AudioStream" id=5]
-[ext_resource path="res://assets/music/landing3.ogg" type="AudioStream" id=6]
-[ext_resource path="res://assets/music/levelmusic.ogg" type="AudioStream" id=7]
-[ext_resource path="res://scenes/core/Pause.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/core/floor.gd" type="Script" id=4]
+[ext_resource path="res://assets/music/landing1.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/music/landing2.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/music/landing3.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/music/levelmusic.ogg" type="AudioStream" id=8]
+[ext_resource path="res://scenes/core/Pause.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 567.993, 10 )
@@ -27,6 +28,7 @@ position = Vector2( 400, 100 )
 
 [node name="floor" type="StaticBody2D" parent="World"]
 position = Vector2( 501.429, 365.182 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -39,18 +41,23 @@ __meta__ = {
 }
 
 [node name="Landing1" type="AudioStreamPlayer2D" parent="World/floor"]
-stream = ExtResource( 4 )
+stream = ExtResource( 5 )
+volume_db = 20.0
 
 [node name="Landing2" type="AudioStreamPlayer2D" parent="World/floor"]
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
+volume_db = 20.0
 
 [node name="Landing3" type="AudioStreamPlayer2D" parent="World/floor"]
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
+volume_db = 20.0
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="World"]
-stream = ExtResource( 7 )
+stream = ExtResource( 8 )
+volume_db = -5.0
 autoplay = true
 
-[node name="Pause" parent="." instance=ExtResource( 8 )]
+[node name="Pause" parent="." instance=ExtResource( 9 )]
 pause_mode = 2
 
+[connection signal="player_landed" from="World/Player" to="World/floor" method="_on_Player_player_landed"]
