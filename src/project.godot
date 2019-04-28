@@ -16,6 +16,8 @@ _global_script_class_icons={
 [application]
 
 config/name="LDJam44"
+run/main_scene="res://scenes/core/StartMenu.tscn"
+run/disable_stdout=true
 config/icon="res://icon.png"
 
 [input]
