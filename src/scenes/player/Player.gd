@@ -16,6 +16,7 @@ const JUMPS_ALLOWED = 1    # 2 jumps
 var speed = Vector2(0,0)
 var speed_now = Vector2(0,0)
 var velocity = Vector2()
+var rotation_speed = 0
 var jumps_used = 0
 
 onready var raycasts = $FloorRaycasts
@@ -23,6 +24,7 @@ onready var raycasts = $FloorRaycasts
 func _ready():
 # func _ready(pos):
 # 	position = pos
+	$AnimatedSprite.modulate = Color('b2f4eb41')
 	emit_signal("spawn")
 
 
@@ -38,7 +40,9 @@ func _physics_process(delta):
 	
 	speed_now.x = lerp(speed_now.x, speed.x, 0.2)
 	velocity.x = speed_now.x
+	rotation_speed = speed_now.x / 16
 	
+	$AnimatedSprite.rotation += rotation_speed * delta
 	velocity = move_and_slide(velocity)
 	
 	if _check_is_grounded():
